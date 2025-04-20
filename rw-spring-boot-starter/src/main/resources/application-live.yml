@@ -1,0 +1,8 @@
+server:
+  error:
+    include-stacktrace: NEVER
+logging:
+  level:
+    org.hibernate.SQL: WARN
+    org.springframework.web: WARN
+    org.springframework.security: WARN

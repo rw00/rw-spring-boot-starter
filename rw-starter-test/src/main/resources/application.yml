@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: rw-starter-test
+  config:
+    import:
+      - 'optional:classpath:/default-app.yml'
+springdoc:
+  packages-to-scan:
+    - "com.rw.apps.starter.admin.api"
+    - "com.rw.apps.starter.test.domain.api"
+app:
+  admins:
+    accounts:
+      - email: "rw.test@gmail.com"
+        pass: "r00t"
+  jwt:
+    secret: "tNgE4aBRWoca6yd51MNBSItEYaYzSCIwX9qmAxRdjtIeSeGA+2yr5HEvzlkZrV05"
+    expiration: 1d

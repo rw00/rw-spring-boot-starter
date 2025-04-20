@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty name="logFileName" source="logging.file.name"/>
+    <springProperty name="fileNamePattern" source="logging.logback.rollingpolicy.file-name-pattern"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.rw.apps.starter.common.logging.MaskingPatternLayout">
+                <maskPattern>\"password\"\s*:\s*\"(.*?)\"</maskPattern>                <!-- Password JSON pattern -->
+                <pattern>
+                    %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %X{MDCFilter.UUID} %highlight(%-5level) %logger{36}.%M - %msg%n
+                </pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logFileName}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${fileNamePattern}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.rw.apps.starter.common.logging.MaskingPatternLayout">
+                <maskPattern>\"password\"\s*:\s*\"(.*?)\"</maskPattern>                <!-- Password JSON pattern -->
+                <pattern>
+                    %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %X{MDCFilter.UUID} %highlight(%-5level) %logger{36}.%M - %msg%n
+                </pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

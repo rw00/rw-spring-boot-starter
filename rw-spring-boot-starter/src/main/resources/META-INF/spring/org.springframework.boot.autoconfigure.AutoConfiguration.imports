@@ -1,0 +1,3 @@
+com.rw.apps.starter.common.config.AppAutoConfig
+com.rw.apps.starter.common.security.config.SecurityAutoConfig
+com.rw.apps.starter.common.security.jwt.JwtAutoConfig

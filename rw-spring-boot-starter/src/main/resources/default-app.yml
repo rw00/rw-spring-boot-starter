@@ -1,0 +1,80 @@
+spring:
+  datasource:
+    db-name: "app-db"
+    driver-class-name: "org.postgresql.Driver"
+    url: "jdbc:postgresql://localhost:51289/${spring.datasource.db-name}"
+    username: "root"
+    password: "r00t"
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    placeholder-replacement: false
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  mail:
+    host: "smtp.hostinger.com"
+    port: 465
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+  jackson:
+    default-property-inclusion: NON_NULL
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+  mvc:
+    log-resolved-exception: false
+server:
+  port: 8080
+  tomcat:
+    remote-ip: # TODO check if correct
+      remote-ip-header: "X-Forwarded-For"
+  servlet:
+    session:
+      timeout: 1h
+  error:
+    include-stacktrace: ALWAYS
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/app.%d{yyyy-MM-dd}.gz
+management:
+  endpoint:
+    web:
+      discovery:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+springdoc:
+  swagger-ui:
+    path: "/admin/api-docs"
+    disable-swagger-default-url: true
+    csrf:
+      enabled: true
+app:
+  server:
+    base-url: "http://localhost:${server.port}"
+  frontend:
+    port: 3001
+    base-url: "http://localhost:${app.frontend.port}"
